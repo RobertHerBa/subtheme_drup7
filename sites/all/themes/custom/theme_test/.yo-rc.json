@@ -1,0 +1,16 @@
+{
+  "generator-drupal-theme": {
+    "projectName": "theme_test",
+    "projectSlug": "theme_test",
+    "baseTheme": "aurora",
+    "baseThemeSettings": {
+      "auroraType": "aurora"
+    },
+    "sassDir": "sass",
+    "cssDir": "css",
+    "jsDir": "js",
+    "imgDir": "img",
+    "fontsDir": "fonts",
+    "templateDir": "tpl"
+  }
+}

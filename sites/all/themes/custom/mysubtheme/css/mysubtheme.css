@@ -1,0 +1,103 @@
+/**
+*
+* #2c889f color claro
+*
+* #004455 color oscuro
+*
+* #c83737 color contraste
+*
+* #216778 color medio
+*/
+@font-face {
+  font-family: banana_yeti;
+  src: url(../font/BananaYeti.ttf);
+}
+
+*{
+  font-family: arial,sans-serif;
+}
+
+#site-name a {
+  font-family: banana_yeti;
+}
+
+#header{
+  background-image: none;
+  background-color: #004455;
+}
+
+#header div.section {
+  position: relative;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#site-slogan {
+  display: none;
+}
+
+#main-menu-links {
+  width: 100%;
+  font-size: 1em;
+  background: #222;
+}
+
+#main-menu-links a {
+  float: right;
+  height: 2.4em;
+  line-height: 2.4em;
+  padding: 0px 1.2em;
+  background-color: #216778;
+  color: #fff;
+  text-decoration: none;
+  text-shadow: none;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+
+  transition: all .4s;
+}
+
+#main-menu-links a:hover, #main-menu-links a:focus {
+  background-color: #287e93;
+
+  transition: all .4s;
+}
+
+#main-menu-links li a.active, #main-menu-links li.active-trail a {
+  background-color: #c83737;
+  color: #fff;
+}
+
+.views-field-field-fecha {
+  width: 100%;
+  height: auto;
+  float: left;
+  padding: 5px 0;
+}
+
+.views-field-field-fecha a{
+  color: #c83737 !important;
+
+}
+
+.hola a{
+  color: orange;
+}
+
+#block-views-lista-fechas-block .views-field-field-icon {
+  width: 18%;
+  height: auto;
+  float: left;
+}
+
+#block-views-lista-fechas-block .views-field-title{
+  width: 80%;
+  float: right;
+  text-transform: uppercase;
+}
+
+#block-views-lista-fechas-block  .date-display-single{
+  width: 80%;
+  float: right;
+}
