@@ -1,0 +1,151 @@
+<?php
+
+/*
+* @file
+*
+* primer_module.module
+*/
+
+/**
+* Implements hook_help.
+*/
+function itm_dbform_help($path, $arg) {
+  switch($path) {
+    case "admin/help#itm_dbform":
+      return '<p>' . t("This is the help form for the module 'ITM Form', just an
+        example of how to use hook_help."). '</p>';
+  }
+}
+
+/*
+* Implements hook_menu.
+*/
+
+function itm_dbform_menu() {
+  $items=array();
+
+  $items['itm/dbform'] = array(
+    'title' => t('ITM dbform'),
+    'page callback' => 'drupal_get_form',
+    //nombre de la funcion que mostrara nuestro formulario
+    'page arguments' => array('itm_dbform_form'),
+    'access callback' => TRUE,
+    );
+  return $items;
+}
+
+  /*
+  *Form itm_dbform_form
+  */
+  function itm_dbform_form($form, &$form_state) {
+  $form['group'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('My first form'),
+    '#collapsible' => TRUE,
+    );
+
+$form['group']['itm_dbform_nombre'] = array(
+  '#type' => 'textfield',
+  '#description' => t('Add your name here'),
+  '#title' => t('Name'),
+  '#size' => 50,
+  '#required' => TRUE,
+  '#default_value' => variable_get('itm_dbform_nombre'),
+  );
+
+$form['group']['itm_dbform_descripcion'] = array(
+  '#type' => 'textarea',
+  '#description' => t('Add your description here'),
+  '#title' => t('Bio'),
+  '#cols' => 100,
+  '#required' => TRUE,
+  '#default_value' => variable_get('itm_dbform_descripcion'),
+  );
+
+$form['group']['itm_dbform_age'] = array(
+  '#type' => 'textfield',
+  '#title' => 'Edad',
+  '#description' => t('Add your age here'),
+  '#size' => 10,
+  '#required' => TRUE,
+  '#default_value' => variable_get('itm_dbform_age'),
+
+  );
+
+$form['group']['itm_dbform_submit'] = array(
+  '#type' => 'submit',
+  '#value' => t('Send'),
+  '#cols' => 100,
+  );
+
+//dpm($form, 'the form');
+
+  return $form;
+}
+
+function itm_dbform_form_validate($form,&$form_state) {
+  //dpm($form_state);
+//dpm($form_state['values']['itm_dbform_age'],'edad');
+if (!is_numeric($form_state['values']['itm_dbform_age']) || !$form_state['values']
+  ['itm_dbform_age'] > 0) {
+  form_set_error('itm_dbform_age','The age should be a possitive number.');
+}
+
+}
+
+
+
+function itm_dbform_form_submit($form,&$form_state) {
+
+  global $user;
+  dpm($user);
+  $result= get_data_by_uid($user->uid);
+
+  if (empty($result)){
+    //insertar nuevo registro
+    insert_new_data($form_state['values']);
+  }
+  else{
+    //actualizar registro
+    update_data($form_state['values']);
+  }
+
+
+}
+
+/*
+* Traer los datis qye esten guardados en la bd para este usuario
+*/
+
+function get_data_by_uid($uid){
+  $result= db_select('itm_dbform', 'i')
+  ->fields('i',array('name', 'description', 'age'))
+  ->condition('i.uid', $uid,'=')
+  ->execute();
+
+  return $result->fetchAssoc();
+}
+
+/*
+*
+*/
+
+function insert_new_data($data){
+
+  dpm($data);
+  $id = db_insert(itm_dbform)
+  ->fields(array(
+    'uid' => $user->uid,
+    'name' => $data['itm_db_name'],
+    'description' => $data['itm_db_description'],
+    'age' => (int) $data['itm_db_age'],
+    ))
+  ->execute();
+  return $id;
+
+}
+
+function update_data($data){
+
+  dpm('Lalala');
+}
